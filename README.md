@@ -1,2 +1,2 @@
-# sri-darbar-sahib-live
-Live Darbar Sahib Kirtan
+# Live Darbar Sahib Kirtan
+https://0xharkirat.github.io/sri-darbar-sahib-live/
