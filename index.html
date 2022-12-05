@@ -95,10 +95,14 @@
   <main class="px-3">
     <h1>Sri Darbar Sahib Live</h1>
     <p class="lead">Sri Harmandir Sahib, also known as Sri Darbar Sahib or Golden Temple. The Sikhs all over the world, daily wish to pay visit to Sri Amritsar and to pay obeisance at Sri Harmandir Sahib in their Ardas.</p>
-    <p class="lead">
-      <button id="button" class="btn btn-lg btn-secondary fw-bold border-white bg-white" onclick="playKirtan()">Play</button>
-    </p>
-    <div class="now playing" id="music">
+    
+    <div class="container my-2">
+      <button id="liveKirtan" type="button" class="btn btn-outline-light my-1" onclick="playKirtan()">Live Kirtan</button>
+      <button id="mukhwak" type="button" class="btn btn-outline-light my-1" onclick="playMukhwak()">Mukhwak</button>
+      <button id="mukhwakKatha" ctype="button" class="btn btn-outline-light my-1" onclick="playMukhwakKatha()">Mukhwak Katha</button>
+    </div>
+    
+    <div class="now playing container" id="music">
       <span class="bar n1"> </span>
       <span class="bar n2"> </span>
       <span class="bar n3"> </span>
@@ -107,6 +111,7 @@
       <span class="bar n6"> </span>
       <span class="bar n7"> </span>
       <span class="bar n8"> </span>
+      <p id="playing">Now Playing</p>
     </div>
     
   </main>
