@@ -1,103 +1,115 @@
 let playing = false;
-var liveKirtan = new Audio('https://live.sgpc.net:8443/;nocache=889869audio_file.mp3');
-var mukhwak = new Audio('https://old.sgpc.net/hukumnama/jpeg%20hukamnama/hukamnama.mp3');
-var mukhwakKatha = new Audio('https://old.sgpc.net/hukumnama/jpeg%20hukamnama/katha.mp3');
+const liveKirtan = new Audio(
+  "https://live.sgpc.net:8443/;nocache=889869audio_file.mp3"
+);
+const mukhwak = new Audio(
+  "https://old.sgpc.net/hukumnama/jpeg%20hukamnama/hukamnama.mp3"
+);
+const mukhwakKatha = new Audio(
+  "https://old.sgpc.net/hukumnama/jpeg%20hukamnama/katha.mp3"
+);
 
-document.getElementById('music').style.display = "none"
+const audio = [
+  {
+    name: "Live Kirtan",
+    id: "liveKirtan",
+    audio: liveKirtan,
+  },
+  {
+    name: "Mukhwak",
+    id: "mukhwak",
+    audio: mukhwak,
+  },
+  {
+    name: "Mukhwak Katha",
+    id: "mukhwakKatha",
+    audio: mukhwakKatha,
+  },
+];
 
+document.getElementById("hukamnama-image").style.display = "none";
+document.getElementById("music").style.display = "none";
 
 function playKirtan() {
+  pauseAll(audio[0].id);
 
-    if (!playing) {
+  if (!playing) {
+    playing = true;
 
-        playing = true
+    play(audio[0].audio, audio[0].name, audio[0].id);
+  } else {
+    playing = false;
 
-        play(liveKirtan, "liveKirtan")
-
-    }
-    else {
-
-        playing = false
-
-        pause(liveKirtan, "liveKirtan")
-
-    }
-
+    pause(audio[0].audio, audio[0].name, audio[0].id);
+  }
 }
 function playMukhwak() {
+  pauseAll(audio[1].id);
 
-    if (!playing) {
+  if (!playing) {
+    playing = true;
 
-        playing = true
+    play(audio[1].audio, audio[1].name, audio[1].id);
 
-        
-       play(mukhwak, "mukhwak");
+    document.getElementById("hukamnama-image").style.display = "block";
 
 
-        setTimeout(() => {
-            playing = false
+    setTimeout(() => {
+      playing = false;
 
-            pause(mukhwak, "mukhwak")
-        }, mukhwak.duration*1000);
+      pause(audio[1].audio, audio[1].name, audio[1].id);
+      
+    }, mukhwak.duration * 1000);
+  } else {
+    playing = false;
 
-    }
-    else {
-
-        playing = false
-
-        pause(mukhwak, "mukhwak")
-    }
-
+    pause(audio[1].audio, audio[1].name, audio[1].id);
+  }
 }
 function playMukhwakKatha() {
+  pauseAll(audio[2].id);
 
-    if (!playing) {
+  if (!playing) {
+    playing = true;
 
-        playing = true
+    play(audio[2].audio, audio[2].name, audio[2].id);
 
-        
-       play(mukhwakKatha, "mukhwakKatha");
+    setTimeout(() => {
+      playing = false;
 
+      pause(audio[2].audio, audio[2].name, audio[2].id);
+    }, mukhwakKatha.duration * 1000);
+  } else {
+    playing = false;
 
-        setTimeout(() => {
-            playing = false
-
-            pause(mukhwakKatha, "mukhwakKatha")
-        }, mukhwakKatha.duration*1000);
-
-    }
-    else {
-
-        playing = false
-
-        pause(mukhwakKatha, "mukhwakKatha")
-    }
-
-}
-
-function play (audio, name){
-
-    audio.play();
-
-        document.getElementById(name).innerHTML = "Pause"
-        document.getElementById("playing").innerHTML = capitalizeFirstLetter(name)
-        document.getElementById('music').style.display = "block"
-
-
-}
-
-function pause (audio, name){
-
-
-    document.getElementById(name).innerHTML = capitalizeFirstLetter(name)
-        document.getElementById('music').style.display = "none";
-
-        
-        audio.pause();
-        audio.load();
-}
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    pause(audio[2].audio, audio[2].name, audio[2].id);
   }
-  
+}
+
+function play(audio, name, id) {
+  audio.play();
+
+  document.getElementById(id).innerHTML = "Pause";
+  document.getElementById("playing").innerHTML = name;
+  document.getElementById("music").style.display = "block";
+}
+
+function pause(audio, name, id) {
+  document.getElementById(id).innerHTML = name;
+  document.getElementById("music").style.display = "none";
+  document.getElementById("hukamnama-image").style.display = "none";
+
+  audio.pause();
+  audio.load();
+}
+
+function pauseAll(id) {
+  for (let index = 0; index < audio.length; index++) {
+    if (audio[index].id !== id) {
+      if (audio[index].audio.duration > 0 && !audio[index].audio.paused) {
+        pause(audio[index].audio, audio[index].name, audio[index].id);
+        playing = false;
+      }
+    }
+  }
+}
